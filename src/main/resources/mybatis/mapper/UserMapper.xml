@@ -55,6 +55,10 @@
 		</foreach>
 	</select>
 	
+	<select id="getAllUser" resultType="com.sunle.entity.User" parameterType="java.util.List">
+	  	select id,code as code1,email as userEmail,name as userName from acl_user
+	</select>
+	
 	<delete id="delteUserRoleByCode1">
 		DELETE FROM 
 			acl_user_role 

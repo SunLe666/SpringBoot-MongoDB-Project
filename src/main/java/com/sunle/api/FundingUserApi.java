@@ -1,5 +1,8 @@
 package com.sunle.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -9,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.sunle.entity.MogoUser;
 import com.sunle.entity.User;
 import com.sunle.service.UserService;
 
@@ -41,6 +47,25 @@ public class FundingUserApi {
 		return user;
 	}
     
+
+	@ApiOperation(value = "获取所有用户信息接口", notes = "获取所有用户信息接口。。")
+	@RequestMapping(value = "/getAllUser", method = RequestMethod.GET)
+	public List<User> getAllUser(HttpServletRequest request) {
+		logger.info("getAllUser  start");
+		int pageNum = 2;
+		int pageSize = 10;
+		List<User> userList = new ArrayList<>();
+		try {
+			Page<User> page = PageHelper.startPage(pageNum, pageSize);
+			logger.info("总条数：{}",page.getTotal());
+			userList = userService.getAllUser();
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+		}
+		logger.info("getAllUser end");
+		return userList;
+	}
 	
 	@RequestMapping(value="/updateUser")
 	public String updateUser(){

@@ -20,5 +20,7 @@ public interface UserService {
 	List<UserAndRoleIdList> getRoleIdListByRoleCodeList(List<String> UserList);
 
 	void delteUserRoleByCode1(String code1);
+
+	List<User> getAllUser();
 	
 }

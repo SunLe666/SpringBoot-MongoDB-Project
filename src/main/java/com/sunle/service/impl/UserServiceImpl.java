@@ -96,4 +96,9 @@ public class UserServiceImpl implements UserService {
 		userMapper.delteUserRoleByCode1(code1);
 	}
 
+	@Override
+	public List<User> getAllUser() {
+		return userMapper.getAllUser();
+	}
+
 }

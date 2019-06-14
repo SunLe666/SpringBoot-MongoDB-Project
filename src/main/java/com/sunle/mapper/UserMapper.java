@@ -21,4 +21,6 @@ public interface UserMapper {
 
 	void delteUserRoleByCode1(@Param("code1") String code1);
 
+	List<User> getAllUser();
+
 }
