@@ -40,6 +40,7 @@ public class FundingUserApi {
 		logger.info("getUser end");
 		return user;
 	}
+    
 	
 	@RequestMapping(value="/updateUser")
 	public String updateUser(){
