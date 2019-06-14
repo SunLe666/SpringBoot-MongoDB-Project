@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.druid.sql.PagerUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sunle.entity.MogoUser;
 import com.sunle.entity.User;
 import com.sunle.service.UserService;
@@ -50,21 +52,23 @@ public class FundingUserApi {
 
 	@ApiOperation(value = "获取所有用户信息接口", notes = "获取所有用户信息接口。。")
 	@RequestMapping(value = "/getAllUser", method = RequestMethod.GET)
-	public List<User> getAllUser(HttpServletRequest request) {
+	public PageInfo<User> getAllUser(HttpServletRequest request) {
 		logger.info("getAllUser  start");
 		int pageNum = 2;
 		int pageSize = 10;
 		List<User> userList = new ArrayList<>();
+		PageInfo<User> pageInfoUserList = new  PageInfo<User>();
 		try {
 			Page<User> page = PageHelper.startPage(pageNum, pageSize);
 			logger.info("总条数：{}",page.getTotal());
 			userList = userService.getAllUser();
+		    pageInfoUserList = new PageInfo<User>(userList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.getMessage());
 		}
 		logger.info("getAllUser end");
-		return userList;
+		return pageInfoUserList;
 	}
 	
 	@RequestMapping(value="/updateUser")
